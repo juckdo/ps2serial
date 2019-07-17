@@ -63,7 +63,7 @@
  * down the middle button will cause choppy mouse movement while the Microsoft protocol
  * does not but the option is still here to those who want to use Logitech protocol.
  */
-//#define USE_MS_PROTOCOL
+#define USE_MS_PROTOCOL
 							  
 /* Uncomment to use Serial1 class instead of Serial for Arduinos with dual
  * hardware UARTS. If commented, Serial class is used to send mouse data for Arduinos
