@@ -53,7 +53,7 @@
  * understand it. No MAX-232 required as 5v is enough to drive most serial interfaces.
  */
 #define PS2_MOUSE_CLOCK   2   /* Must connect to Pin 5 (clock) of PS/2 mouse */
-#define PS2_MOUSE_DATA    4   /* Must connect to Pin 1 (data) of PS/2 mouse */
+#define PS2_MOUSE_DATA    5   /* Must connect to Pin 1 (data) of PS/2 mouse */
 
 #define RTS_PROBE         7   /* Must connect to Pin 7 (RTS) of PC serial port */
                               /* (NOTE: must go through a 5v regulator and */
@@ -63,7 +63,7 @@
  * down the middle button will cause choppy mouse movement while the Microsoft protocol
  * does not but the option is still here to those who want to use Logitech protocol.
  */
-#define USE_MS_PROTOCOL
+//#define USE_MS_PROTOCOL
 							  
 /* Uncomment to use Serial1 class instead of Serial for Arduinos with dual
  * hardware UARTS. If commented, Serial class is used to send mouse data for Arduinos
@@ -191,7 +191,8 @@ void loop()
   /* Read mouse data 4 times as PS/2 is too fast for serial */
   for(int i=0; i<4; i++)
   {
-    mouse.report( data );
+    //mouse.report( data );
+    mouse.read_ps2_data( data, 5000 );
     
     x_status += data[1];
     y_status += -data[2];
@@ -259,8 +260,10 @@ void loop()
         /* To compensate for the additional delay from sending 4 byte packets instead of 3 */
         #ifndef USE_MS_PROTOCOL
         
-        mouse.report( data );
-        mouse.report( data );
+	mouse.read_ps2_data( data, 5000 );
+	mouse.read_ps2_data( data, 5000 );
+        //mouse.report( data );
+        //mouse.report( data );
         
         #endif
       }
